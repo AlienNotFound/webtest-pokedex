@@ -1,0 +1,28 @@
+body {
+    font-family: monospace;
+    background-color: #cd3156;
+}
+
+h1 {
+    text-align: center;
+}
+
+#pokemonInput {
+    width: 100%;
+}
+
+.App {
+    min-height: 30vh;
+    margin: 0 auto;
+    padding: 0 10%;
+    box-sizing: border-box;
+    background-color: #fff;
+    width: 50vw;
+}
+
+.App div {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+}
