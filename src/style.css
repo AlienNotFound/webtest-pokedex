@@ -1,36 +1,122 @@
 body {
     font-family: monospace;
     background-color: #cd3156;
+    margin: 0!important;
 }
 
 h1 {
     text-align: center;
 }
 
+h2 {
+    color: #4c8055;
+    text-transform: capitalize;
+}
+
 #pokemonInput {
-    width: 100%;
+    width: 65%;
+    margin-bottom: 2%;
+}
+
+/* Flex */
+#dex-left-header1 {
+    display: flex;
+}
+
+
+/* Default Flex */
+.App,
+#screen1-border,
+#screen1 {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-content: center;
+}
+
+/* Box-sizing: borderbox */
+.App,
+#dex-left-header1,
+#dex-left-header,
+#dex-left,
+#dex-mid,
+#dex-right,
+#screen1-border,
+#top-lights-box,
+#bottom-lights-box{
+    box-sizing: border-box;
 }
 
 .App {
     min-height: 30vh;
     margin: 0 auto;
-    /*padding: 0 10%;*/
-    box-sizing: border-box;
+    padding-top: 1%;
+    padding-bottom: 5%;
     background-color: #fff;
     width: 50vw;
 }
 
-.App div {
+/*.App div {*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    flex-wrap: wrap;*/
+/*    align-content: center;*/
+/*}*/
+
+#dex-top-row {
+    width: 400px;
     display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    align-content: center;
+    align-content: baseline;
+    background-color: #8a1122;
 }
 
-#dex-left {
+#dex-left-header1, #dex-right-header {
     background-color: #dc0a2d;
-    box-sizing: border-box;
-    padding: 0 18%;
+}
+
+#dex-left-header1 {
+    padding: 2%;
+    clip-path: polygon(0% 0%, 100% 0, 100% 60%, 90% 100%, 0% 100%);
+}
+
+#dex-right-header {
+    width: 100%;
+    clip-path: inset(0 0 40% 0);
+}
+
+#dex-bottom-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#dex-left, #dex-mid, #dex-right {
+    background-color: #dc0a2d;
+    height: 500px;
+}
+
+#dex-left, #dex-right {
+    padding: 4%;
+    width: 400px;
+}
+
+#dex-mid {
+    width: 50px;
+    border: #000 3px solid;
+}
+
+#black-screen, #blue-buttons {
+    width: 100%;
+    height: 75px;
+}
+
+#black-screen {
+    background-color: #000;
+}
+
+#blue-buttons {
+    background-color: #26aafd;
+    margin-top: 10px;
 }
 
 #dex-left-header, #dex-left-threelights {
@@ -43,16 +129,15 @@ h1 {
 }
 
 #dex-left-header {
-    box-sizing: border-box;
-    padding: 4% 0;
+    padding: 2% 0;
     clip-path: polygon(0 0, 100% 0, 100% 50%, 59% 50%, 43% 100%, 0% 100%);
     background-color: #fff;
 }
 
 #dex-left-bluelight {
-    height: 45px;
-    width: 45px;
-    margin: 0 10px;
+    height: 80px;
+    width: 80px;
+    margin: 0 20px;
     background-color: #26aafd;
     border-radius: 50px;
     border: #e1e1e1 5px solid;
@@ -81,10 +166,9 @@ h1 {
 #screen1-border {
     background: linear-gradient(45deg, transparent 25px, #e1e1e1 25px);
     /*padding-top: 30px;*/
-    box-sizing: border-box;
     border: 5px;
     width: 100%;
-    height: 33vh;
+    height: 20vh;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -92,7 +176,6 @@ h1 {
 
 #top-lights-box, #bottom-lights-box {
     width: 100%;
-    box-sizing: border-box;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
@@ -142,6 +225,7 @@ h1 {
 #screen1 {
     background-color: #6ab6d4;
     width: 70%;
+    height: 65%;
 }
 
 #screen1 img {
