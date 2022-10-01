@@ -11,6 +11,8 @@ h1 {
 h2 {
     color: #4c8055;
     text-transform: capitalize;
+    text-align: center;
+    margin-top: 0;
 }
 
 #pokemonInput {
