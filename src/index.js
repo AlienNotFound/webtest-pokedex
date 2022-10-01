@@ -82,7 +82,9 @@ const App = () => {
                             <div className="top-lights"></div>
                         </div>
                         <div id="screen1">
-                            <img src="./133.png" alt="eevee"/>
+                            {data && (
+                                <img src={Object.values(data.sprites.other['official-artwork'])[0].toString()} alt="test"/>
+                            )}
                         </div>
                         <div id="bottom-lights-box">
                             <div id="bottom-light"></div>
@@ -93,10 +95,9 @@ const App = () => {
                 <div id="dex-mid"></div>
                 <div id="dex-right">
                     <div id="black-screen">
-                        <h2>eevee #133</h2>
-                        {/*{data && (*/}
-                        {/*    <h2>{data.name} #{data.id}</h2>*/}
-                        {/*    )}*/}
+                        {data && (
+                            <h2>{data.name} #{data.id}</h2>
+                            )}
                     </div>
                     <div id="blue-buttons"></div>
                 </div>
