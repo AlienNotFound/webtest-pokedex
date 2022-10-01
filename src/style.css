@@ -14,7 +14,7 @@ h1 {
 .App {
     min-height: 30vh;
     margin: 0 auto;
-    padding: 0 10%;
+    /*padding: 0 10%;*/
     box-sizing: border-box;
     background-color: #fff;
     width: 50vw;
@@ -25,4 +25,125 @@ h1 {
     flex-direction: column;
     flex-wrap: wrap;
     align-content: center;
+}
+
+#dex-left {
+    background-color: #dc0a2d;
+    box-sizing: border-box;
+    padding: 0 18%;
+}
+
+#dex-left-header, #dex-left-threelights {
+    display: flex;
+    flex-direction: row;
+}
+
+#dex-left-threelights {
+    align-content: flex-start;
+}
+
+#dex-left-header {
+    box-sizing: border-box;
+    padding: 4% 0;
+    clip-path: polygon(0 0, 100% 0, 100% 50%, 59% 50%, 43% 100%, 0% 100%);
+    background-color: #fff;
+}
+
+#dex-left-bluelight {
+    height: 45px;
+    width: 45px;
+    margin: 0 10px;
+    background-color: #26aafd;
+    border-radius: 50px;
+    border: #e1e1e1 5px solid;
+}
+
+.threelight {
+    height: 7px;
+    width: 7px;
+    margin: 0 5px;
+    border-radius: 50px;
+    border: #000 3px solid;
+}
+
+.red {
+    background-color: #dc0a2d;
+}
+
+.yellow {
+    background-color: #e0d431;
+}
+
+.green {
+    background-color: #4c8055;
+}
+
+#screen1-border {
+    background: linear-gradient(45deg, transparent 25px, #e1e1e1 25px);
+    /*padding-top: 30px;*/
+    box-sizing: border-box;
+    border: 5px;
+    width: 100%;
+    height: 33vh;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+#top-lights-box, #bottom-lights-box {
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+#top-lights-box {
+    padding: 5% 30%;
+    align-items: center;
+    align-content: space-between;
+    justify-content: space-evenly;
+}
+
+#bottom-lights-box {
+    padding: 3% 15%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.top-lights {
+    width: 10px;
+    height: 10px;
+    background-color: #d21d4b;
+    border-radius: 50px;
+}
+
+#bottom-light {
+    width: 15px;
+    height: 15px;
+    background-color: #d21d4b;
+    border-radius: 50px;
+}
+
+#bottom-speaker::before,
+#bottom-speaker::after {
+    display: block;
+    border-top: #232323 3px solid;
+    border-bottom: #232323 3px solid;
+    width: 30px;
+    content: '';
+    height: 2px;
+}
+
+#bottom-speaker::before {
+    margin-bottom: 3px;
+}
+
+#screen1 {
+    background-color: #6ab6d4;
+    width: 70%;
+}
+
+#screen1 img {
+    width: 70%;
 }
