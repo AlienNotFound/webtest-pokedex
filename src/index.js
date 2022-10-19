@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react"
 import "./style.css"
+import {logDOM} from "@testing-library/react";
 const ReactDOM = require('react-dom/client');
 
 const App = () => {
@@ -9,6 +10,7 @@ const App = () => {
     const [search, setSearch] = useState({
         slug: "",
     });
+    const [scroll, setScroll] = useState(-1.2);
 
     const handleChange = (event) => {
         if (event.key === 'Enter') {
@@ -17,19 +19,42 @@ const App = () => {
         }
     }
 
+    const urls = [ `https://pokeapi.co/api/v2/pokemon/${search.slug}`, `https://pokeapi.co/api/v2/pokemon-species/${search.slug}`]
+
     //Fetch
     useEffect(() => {
-        Promise.all([
-            fetch(`https://pokeapi.co/api/v2/pokemon/133`),
-            fetch(`https://pokeapi.co/api/v2/pokemon-species/133`)
-        ]).then(responses => {
-            const pokemonRes = responses[0]
-            const entryRes = responses[1]
+        const getData = async () =>
+        {
+            try {
+                await Promise.all([
+                    fetch(`https://pokeapi.co/api/v2/pokemon/${search.slug}`),
+                    fetch(`https://pokeapi.co/api/v2/pokemon-species/${search.slug}`)
+                ]).then((responses) => {
+                    return Promise.all(responses.map((res) => {
+                        return res.json();
+                    }));
+                }).then((test) => {
+                    if(search.slug !== "") {
+                        setData(test)
+                        setError(null)
+                        //             setData(actualData);
+                        //             setError(null);
+                    }
+                })
+            }
+            catch (e) {
+                console.log(e)
+            }
+        }
 
-            console.log(pokemonRes.json())
+        getData();
+        setLoading(false);
 
-            return pokemonRes.json()
-        })
+
+
+
+
+
         // fetch(`https://pokeapi.co/api/v2/pokemon/${search.slug}`)
         //     .then((response) => {
         //         if (!response.ok) {
@@ -53,6 +78,18 @@ const App = () => {
     }, [search.slug]);
 
     console.log(data)
+
+    const scrollUp = () => {
+        setScroll(scroll + 7)
+    }
+
+    const scrollDown = () => {
+        setScroll(scroll - 7)
+    }
+
+    const scrollStyle = {
+        marginTop: scroll + "em",
+    }
 
     return <div className="App">
         <h1>Search</h1>
@@ -88,7 +125,7 @@ const App = () => {
                             </div>
                             <div id="screen1">
                                 {data && (
-                                    <img src={data.sprites.other['official-artwork'].front_default} alt="Artwork not found." />
+                                    <img src={data[0].sprites.other['official-artwork'].front_default} alt="Artwork not found." />
                                 )}
                             </div>
                             <div id="bottom-lights-box">
@@ -107,8 +144,20 @@ const App = () => {
                                 </div>
                                 {/*<div id="dex-left-controls-col2-row2">*/}
                                     <div id="dex-left-controls-green-screen" className="lightgreen">
+                                        <div id="arrow-up" onClick={scrollUp} style={{display: scroll <= -1.2 ? 'none' : 'block'}}></div>
+                                        <div id="arrow-down" onClick={scrollDown}></div>
+                                        <p style={scrollStyle}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque
+                                            dignissim risus a odio fermentum ultricies. Nullam lectus ipsum,
+                                            feugiat a mi vitae, lobortis auctor augue. Maecenas quis tincidunt eros.
+                                            Cras nec hendrerit dui. Phasellus nec metus dolor. Mauris sit amet leo
+                                            ac nibh cursus dignissim at a magna. Sed tortor massa, maximus vel
+                                            ultricies id, eleifend sed lacus. Nullam venenatis nisl eget urna
+                                            pulvinar, eu tempor mauris vehicula. Fusce ac ligula sem. Suspendisse
+                                            id metus ac justo mattis iaculis vitae quis nulla. Donec finibus tempus
+                                            risus eu finibus. Fusce dapibus metus non urna condimentum mollis.
+                                            Morbi eleifend felis eu arcu tincidunt porttitor. </p>
                                         {/*{data && (*/}
-                                        {/*    <p>{data.}</p>*/}
+                                        {/*    <p>{data[1].flavor_text_entries[0].flavor_text}</p>*/}
                                         {/*)}*/}
                                     </div>
                                 {/*</div>*/}
@@ -130,7 +179,7 @@ const App = () => {
                             {...(loading && {className:'hidden'})}
                         />
                         {data && (
-                            <h2>{data.name} #{data.id}</h2>
+                            <h2>{data[0].name} #{data[0].id}</h2>
                             )}
                     </div>
                     <div id="blue-buttons"></div>
@@ -143,7 +192,8 @@ const App = () => {
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
-    <React.StrictMode>
-        <App />
-    </React.StrictMode>,
+    <App></App>
+    // <React.StrictMode>
+    //     <App />
+    // </React.StrictMode>,
 )

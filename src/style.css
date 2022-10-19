@@ -463,7 +463,7 @@ h2, #pokemonInput {
 }
 
 #dex-left-controls-col2 {
-    width: 130px;
+    width: 150px;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -484,11 +484,45 @@ h2, #pokemonInput {
 }
 
 #dex-left-controls-green-screen {
-    width: 120px;
-    height: 65px;
+    width: 145px;
+    height: 75px;
+    padding: 5px;
     border: 2px solid #222;
     border-radius: 5px;
     box-shadow: inset 0 0 5px 1px #2f5f42;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+#dex-left-controls-green-screen p {
+    font-size: 10px;
+    color: #1e3928;
+    line-height: 1.4em;
+    box-sizing: border-box;
+    padding: 2px 15px 3px 1px;
+}
+
+#arrow-up, #arrow-down {
+    width: 8px;
+    height: 6px;
+    background-color: #2f5f42;
+    position: relative;
+    left: 120px;
+}
+
+#arrow-up:hover, #arrow-down:hover {
+    cursor: pointer;
+}
+
+#arrow-up {
+    margin-top: -6px;
+    clip-path: polygon(50% 0, 50% 0, 100% 100%, 0 100%);
+    top: 9px;
+}
+
+#arrow-down {
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    top: 55px;
 }
 
 #dex-left-controls-arrow-keys {
