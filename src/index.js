@@ -7,39 +7,32 @@ const App = () => {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [search, setSearch] = useState({
-        slug: "",
-    });
-    // const [scroll, setScroll] = useState(0);
-    // const [screenNumber, setScreenNumber] = useState(1);
-    // const [maxScreen, setMaxScreen] = useState(null);
-    // const targetRef = createRef();
+    const [search, setSearch] = useState("");
 
     const handleChange = (event) => {
         if (event.key === 'Enter') {
-            setSearch(({...search, slug: event.target.value}))
+            setSearch(event.target.value)
             console.log("Search: " + event.target.value)
         }
     }
 
-    //`https://pokeapi.co/api/v2/pokemon/${search.slug}`
-    // `https://pokeapi.co/api/v2/pokemon-species/${search.slug}`]
+    //`https://pokeapi.co/api/v2/pokemon/${search}`
+    // `https://pokeapi.co/api/v2/pokemon-species/${search}`]
 
     //Fetch
     useEffect(() => {
-        console.log("fooooo")
         const getData = () =>
         {
             try {
                 Promise.all([
-                    fetch(`https://pokeapi.co/api/v2/pokemon/${search.slug}`),
-                    fetch(`https://pokeapi.co/api/v2/pokemon-species/${search.slug}`)
+                    fetch(`https://pokeapi.co/api/v2/pokemon/${search}`),
+                    fetch(`https://pokeapi.co/api/v2/pokemon-species/${search}`)
                 ]).then((responses) => {
                     return Promise.all(responses.map((res) => {
                         return res.json();
                     }));
                 }).then((test) => {
-                    if(search.slug !== "") {
+                    if(search !== "") {
                         setData(test)
                         setError(null)
                     }
