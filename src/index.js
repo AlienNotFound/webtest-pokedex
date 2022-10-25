@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react"
 import "./style.css"
 import {Entries} from "./components/entriesTag";
+import {BlueButtonsControl} from "./components/blueButtonsControl";
 const ReactDOM = require('react-dom/client');
 
 const App = () => {
@@ -57,89 +58,107 @@ const App = () => {
         )}
 
         <div id="pokedex">
-            <div id="dex-top-row">
-                <div id="dex-left-header1">
-                        <div id="dex-left-bluelight"></div>
-                        <div id="dex-left-threelights">
-                            <div className="threelights red"></div>
-                            <div className="threelights yellow"></div>
-                            <div className="threelights green"></div>
-                        </div>
+            <div id="dex-left-column">
+                <div id="dex-left-top-row">
+                    <div id="dex-left-header1">
+                            <div id="dex-left-bluelight"></div>
+                            <div id="dex-left-threelights">
+                                <div className="threelights red"></div>
+                                <div className="threelights yellow"></div>
+                                <div className="threelights green"></div>
+                            </div>
+                    </div>
+                    <div id="dex-right-header">
+                        <div id="dex-right-header-top"></div>
+                        <div id="dex-right-header-bottom"></div>
+                    </div>
                 </div>
-                <div id="dex-right-header">
-                    <div id="dex-right-header-top"></div>
-                    <div id="dex-right-header-bottom"></div>
+
+                <div className="dex-bottom-row">
+                    <div id="dex-left">
+                        <div id="dex-left-inner-border">
+                            <div id="screen1-border">
+                                <div id="top-lights-box">
+                                    <div className="top-lights"></div>
+                                    <div className="top-lights"></div>
+                                </div>
+                                <div id="screen1">
+                                    {data && (
+                                        <img src={data[0].sprites.other['official-artwork'].front_default} alt="Artwork not found." />
+                                    )}
+                                </div>
+                                <div id="bottom-lights-box">
+                                    <div id="bottom-light"></div>
+                                    <div id="bottom-speaker"></div>
+                                </div>
+                            </div>
+                            <div id="dex-left-controls">
+                                <div id="dex-left-controls-col1">
+                                    <div id="dex-left-controls-col1-button"></div>
+                                </div>
+                                <div id="dex-left-controls-col2">
+                                    <div id="dex-left-controls-col2-row1">
+                                        <div className="dex-left-controls-long-light red"></div>
+                                        <div className="dex-left-controls-long-light blue"></div>
+                                    </div>
+                                        <div id="dex-left-controls-green-screen" className="lightgreen">
+                                            <div id="dex-left-green-screen-text">
+                                                {data && (
+                                                    <Entries entryData={data[1].flavor_text_entries[0].flavor_text}/>
+                                                )}
+                                            </div>
+                                        </div>
+                                </div>
+                                <div id="dex-left-controls-col3">
+                                    <div id="dex-left-controls-arrow-keys"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="dex-mid"></div>
+
                 </div>
             </div>
-            <div id="dex-bottom-row">
-                <div id="dex-left">
-                    <div id="dex-left-inner-border">
-                        <div id="screen1-border">
-                            <div id="top-lights-box">
-                                <div className="top-lights"></div>
-                                <div className="top-lights"></div>
-                            </div>
-                            <div id="screen1">
+            <div id="dex-right-column">
+                <div id="dex-right-top-row"></div>
+                <div className="dex-bottom-row">
+                <div id="dex-right">
+                    <div id="dex-right-inner-border">
+                        <div className="dex-right-row">
+                            <div id="black-screen">
+                                {loading && <h2>Just a moment!</h2>}
+                                <input type="text" id="pokemonInput"
+                                       onKeyDown={handleChange}
+                                       placeholder={"Search"}
+                                       defaultValue={""}
+                                       {...(loading && {className:'hidden'})}
+                                />
                                 {data && (
-                                    <img src={data[0].sprites.other['official-artwork'].front_default} alt="Artwork not found." />
+                                    <h2>{data[0].name} #{data[0].id}</h2>
                                 )}
                             </div>
-                            <div id="bottom-lights-box">
-                                <div id="bottom-light"></div>
-                                <div id="bottom-speaker"></div>
-                            </div>
                         </div>
-                        <div id="dex-left-controls">
-                            <div id="dex-left-controls-col1">
-                                <div id="dex-left-controls-col1-button"></div>
+                        <div className="dex-right-row">
+                            <BlueButtonsControl />
+                        </div>
+                        <div className="dex-right-row">
+                            <div className="slim-black-button"></div>
+                            <div className="slim-black-button"></div>
+                        </div>
+                        <div className="dex-right-row">
+                            <div id="white-buttons">
+                                <div className="white-button"></div>
+                                <div className="white-button"></div>
                             </div>
-                            <div id="dex-left-controls-col2">
-                                <div id="dex-left-controls-col2-row1">
-                                    <div className="dex-left-controls-long-light red"></div>
-                                    <div className="dex-left-controls-long-light blue"></div>
-                                </div>
-                                {/*<div id="dex-left-controls-col2-row2">*/}
-                                    <div id="dex-left-controls-green-screen" className="lightgreen">
-                                        <div id="dex-left-green-screen-text">
-                                            {/*<p id="poke-entry" ref={targetRef} style={scrollStyle} >Linoone always runs full speed and only in straight lines. If facing an obstacle, it makes a</p>*/}
-                                            {/*<p id="poke-entry" ref={targetRef} style={scrollStyle}>*/}
-                                            {/*    {data && (*/}
-                                            {/*            <>{data[1].flavor_text_entries[0].flavor_text}</>*/}
-                                            {/*    )}*/}
-                                            {/*</p>*/}
-                                            {data && (
-                                                <Entries entryData={data[1].flavor_text_entries[0].flavor_text}/>
-                                            )}
-                                            {/*<div id="dex-left-green-screen-arrows" style={{justifyContent: screenNumber === 1 ? 'end' : 'space-between'}}>*/}
-                                            {/*    <div id="arrow-up" onClick={scrollUp} style={{display: screenNumber === 1 ? 'none' : 'block'}} ></div>*/}
-                                            {/*    <div id="arrow-down" onClick={scrollDown} style={{display: screenNumber >= maxScreen ? 'none' : 'block'}}></div>*/}
-                                            {/*</div>*/}
-                                        </div>
-                                    </div>
-                                {/*</div>*/}
-                            </div>
-                            <div id="dex-left-controls-col3">
-                                <div id="dex-left-controls-arrow-keys"></div>
-                            </div>
+                            <div id="yellow-round-button" className={"yellow"}></div>
+                        </div>
+                        <div className="dex-right-row">
+                            <div className="small-black-screen"></div>
+                            <div className="small-black-screen"></div>
                         </div>
                     </div>
                 </div>
-                <div id="dex-mid"></div>
-                <div id="dex-right">
-                    <div id="black-screen">
-                        {loading && <h2>Just a moment!</h2>}
-                        <input type="text" id="pokemonInput"
-                               onKeyDown={handleChange}
-                               placeholder={"Search"}
-                               defaultValue={""}
-                            {...(loading && {className:'hidden'})}
-                        />
-                        {data && (
-                            <h2>{data[0].name} #{data[0].id}</h2>
-                            )}
-                    </div>
-                    <div id="blue-buttons"></div>
-                </div>
+            </div>
             </div>
         </div>
     </div>

@@ -32,6 +32,8 @@ h2, #pokemonInput {
 }
 
 /* Flex */
+#pokedex,
+/*#dex-right-inner-border,*/
 #dex-left-header1,
 #dex-left-controls,
 #black-screen,
@@ -40,9 +42,21 @@ h2, #pokemonInput {
 }
 
 /* Wrap */
+#dex-right-inner-border,
+.dex-right-row:nth-child(2),
 #black-screen {
     flex-wrap: wrap;
 }
+
+/*!* Flex Column *!*/
+/*#dex-right-inner-border {*/
+/*    flex-direction: column;*/
+/*}*/
+
+/*!* Justify Space Evenly *!*/
+/*#dex-right-inner-border {*/
+/*    justify-content: space-evenly;*/
+/*}*/
 
 /* Default Flex */
 .App,
@@ -82,7 +96,7 @@ h2, #pokemonInput {
 /*    align-content: center;*/
 /*}*/
 
-#dex-top-row {
+#dex-left-top-row {
     width: 400px;
     display: flex;
     align-content: baseline;
@@ -162,10 +176,21 @@ h2, #pokemonInput {
     clip-path: polygon(0px 0px, 100% 0px, 100% 47%, 0% 100%);
 }
 
-#dex-bottom-row {
+.dex-bottom-row {
     display: flex;
     flex-direction: row;
     justify-content: center;
+}
+
+#dex-right-column {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: end;
+}
+
+#dex-left-column, #dex-right-column {
+    width: 425px;
 }
 
 #dex-left, #dex-mid, #dex-right {
@@ -174,20 +199,30 @@ h2, #pokemonInput {
 }
 
 #dex-left, #dex-right {
+    width: 100%;
     padding: 1%;
-    width: 400px;
+    border-color: #222;
+    border-style: solid;
+    /*width: 400px;*/
 }
 
 #dex-left {
     border-width: 0 0 3px 3px;
-    border-color: #222;
-    border-style: solid;
     border-radius: 0 0 0 7px;
 }
 
 #dex-mid {
     width: 50px;
     border: #000 3px solid;
+    height: 477px;
+    margin-top: -43px;
+
+}
+
+#dex-right {
+    height: 432px;
+    border-width: 3px 3px 3px 0;
+    border-radius: 0 7px 7px 0;
 }
 
 #black-screen, #blue-buttons {
@@ -206,7 +241,135 @@ h2, #pokemonInput {
 
 #blue-buttons {
     background-color: #26aafd;
+}
+
+.blueButton {
+    width: 69px;
+    height: 41px;
+    margin-bottom: 2px;
+    background-color: #26aafd;
+}
+
+#dex-right-inner-border {
+    height: 375px;
+    border-radius: 0 5px 5px 5px;
+    padding: 5% 7% 5% 7%;
+}
+
+#dex-right-top-row {
+    width: 200px;
+    height: 51px;
+    border-color: #222;
+    border-width: 3px 0 0 0;
+    border-style: solid;
+    clip-path: polygon(0 0, 71% 0, 100% 100%, 0% 100%);
+    content: '';
+    display: block;
+    position: relative;
+    margin-top: -50px;
+    top: 8px;
+    background: linear-gradient(90deg, #dc0a2d 10px,transparent 10px),
+                linear-gradient(transparent 45px, #dc0a2d 45px, #dc0a2d 50px, #8a1122 50px),
+                linear-gradient(43deg, #dc0a2d 133px, #222 134px);
+}
+
+#dex-right-top-row::before {
+    width: 192px;
+    height: 45px;
+    border-color: #8a1122;
+    border-width: 1px 0 0 1px;
+    border-style: solid;
+    border-radius: 5px 0 0 0;
+    clip-path: polygon(0 0, 71% 0, 96% 100%, 0% 100%);
+    background: linear-gradient(43.5deg, #dc0a2d 125px, #8a1122 126px);
+    content: '';
+    display: block;
+    position: relative;
+    top: 5px;
+    left: 4px;
+}
+
+.dex-right-row {
+    display: flex;
+    flex-direction: row;
+    /*justify-content: end;*/
+    box-sizing: border-box;
+    /*padding: 5px 10px 0 10px;*/
+}
+
+.dex-right-row:nth-child(2),
+.dex-right-row:nth-child(4),
+.dex-right-row:nth-child(5) {
+    margin-top: 30px;
+}
+
+.dex-right-row:nth-child(2) {
+    justify-content: space-between;
+    background-color: #222;
+    box-sizing: border-box;
+    padding: 2px 2px 0 2px;
+}
+
+.dex-right-row:nth-child(3) {
     margin-top: 10px;
+    justify-content: end;
+}
+
+.slim-black-button {
+    width: 60px;
+    height: 5px;
+    margin-left: 10px;
+    background-color: #222;
+    border-radius: 5px;
+}
+
+.dex-right-row:nth-child(4) {
+    justify-content: space-between;
+}
+
+#white-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+}
+
+.white-button {
+    width: 45px;
+    height: 40px;
+    background-color: #ddd;
+    border-radius: 2px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #222;
+}
+
+.white-button:nth-child(1) {
+    border-width: 2px 0 2px 2px;
+    border-radius: 2px 0 0 2px;
+    box-shadow: inset -0px -5px 1px -2px #aaa;
+}
+
+.white-button:nth-child(2) {
+    border-width: 2px 2px 2px 2px;
+    border-radius: 0 2px 2px 0;
+    box-shadow: inset -5px -5px 1px -2px #aaa;
+}
+
+#yellow-round-button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+}
+
+.dex-right-row:nth-child(5) {
+    justify-content: space-between;
+}
+
+.small-black-screen {
+    width: 165px;
+    height: 55px;
+    border-radius: 2px;
+    background-color: #222;
 }
 
 #dex-left-header, #dex-left-threelights {
@@ -337,42 +500,35 @@ h2, #pokemonInput {
     left: -147px;
 }
 
+#dex-left-inner-border, #dex-right-inner-border {
+    border: 1px solid #8a1122;
+}
+
 #dex-left-inner-border {
     width: 380px;
     height: 100%;
     padding: 7%;
-    border: 1px solid #8a1122;
     border-radius: 5px 0 5px 5px;
     box-sizing: border-box;
 }
 
 #dex-left-inner-border::before {
-    width: 193.5px;
-    height: 44px;
-    margin-bottom: -44px;
+    width: 192px;
+    height: 42px;
+    margin-bottom: -43px;
     content: '';
     display: block;
     position: relative;
-    top: -70px;
-    left: 158px;
+    top: -68px;
+    left: 161px;
     border-radius: 0 5px 0 0;
-    border-width: 0 1px 0 0;
+    border-width: 1px 1px 0 0;
     border-style: solid;
     border-color: #8a1122;
-    background-color: #dc0a2d;
-    clip-path: polygon(30% 0%, 100% 0, 100% 100%, 0% 100%);
-    background:
-            linear-gradient(
-                180deg,
-                #8a1122 0px,
-                #8a1122 1px,
-                transparent 1px),
-            linear-gradient(
-                    142.5deg,
-                    transparent 35px,
-                    #8a1122 36px,
-                    #8a1122 36px,
-                    #dc0a2d 37px);
+    clip-path: polygon(31% 0%, 100% 0, 100% 100%, 0% 100%);
+    background: linear-gradient(144deg, #8a1122 35px, #dc0a2d 36px);
+    box-sizing: border-box;
+    padding-top: -45px;
 }
 
 /*#dex-left-inner-border::after {*/
