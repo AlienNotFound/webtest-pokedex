@@ -68,12 +68,11 @@ h2, #pokemonInput {
 }
 
 .App {
-    min-height: 30vh;
     margin: 0 auto;
     padding-top: 1%;
     padding-bottom: 5%;
     background-color: #fff;
-    width: 50vw;
+    width: 60vw;
 }
 
 /*.App div {*/
@@ -328,13 +327,13 @@ h2, #pokemonInput {
     content: '';
     background: linear-gradient(
             45deg,
-            #dc0a2d 21px,
-            #222 21px,
-            #222 24px,
-            #e1e1e1 24px);
+            #dc0a2d 23px,
+            #222 23px,
+            #222 25px,
+            #e1e1e1 25px);
     display: block;
     position: relative;
-    bottom: -214px;
+    bottom: -215px;
     left: -147px;
 }
 
@@ -357,7 +356,7 @@ h2, #pokemonInput {
     top: -70px;
     left: 158px;
     border-radius: 0 5px 0 0;
-    border-width: 0px 1px 0 0;
+    border-width: 0 1px 0 0;
     border-style: solid;
     border-color: #8a1122;
     background-color: #dc0a2d;
@@ -486,27 +485,49 @@ h2, #pokemonInput {
 #dex-left-controls-green-screen {
     width: 145px;
     height: 75px;
-    padding: 5px;
+    padding: 4px 5px;
     border: 2px solid #222;
     border-radius: 5px;
     box-shadow: inset 0 0 5px 1px #2f5f42;
     box-sizing: border-box;
+
+}
+
+#dex-left-green-screen-text {
+    height: 65px;
     overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
 }
 
 #dex-left-controls-green-screen p {
+    width: 115px;
     font-size: 10px;
     color: #1e3928;
-    line-height: 1.4em;
+    line-height: 1.3em;
     box-sizing: border-box;
-    padding: 2px 15px 3px 1px;
+    padding: 0 0 3px 1px;
+    margin: 0;
+    /*padding: 2px 15px 3px 1px;*/
+}
+
+#dex-left-green-screen-arrows {
+    height: 100%;
+    padding: 2px 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-content: center;
+    flex-direction: column;
 }
 
 #arrow-up, #arrow-down {
     width: 8px;
     height: 6px;
     background-color: #2f5f42;
-    position: relative;
+    /*position: relative;*/
     left: 120px;
 }
 
@@ -515,7 +536,7 @@ h2, #pokemonInput {
 }
 
 #arrow-up {
-    margin-top: -6px;
+    /*margin-top: -6px;*/
     clip-path: polygon(50% 0, 50% 0, 100% 100%, 0 100%);
     top: 9px;
 }

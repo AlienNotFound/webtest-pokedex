@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react"
+import React, {useState, useEffect} from "react"
 import "./style.css"
-import {logDOM} from "@testing-library/react";
+import {Entries} from "./components/entriesTag";
 const ReactDOM = require('react-dom/client');
 
 const App = () => {
@@ -10,7 +10,10 @@ const App = () => {
     const [search, setSearch] = useState({
         slug: "",
     });
-    const [scroll, setScroll] = useState(-1.2);
+    // const [scroll, setScroll] = useState(0);
+    // const [screenNumber, setScreenNumber] = useState(1);
+    // const [maxScreen, setMaxScreen] = useState(null);
+    // const targetRef = createRef();
 
     const handleChange = (event) => {
         if (event.key === 'Enter') {
@@ -19,14 +22,16 @@ const App = () => {
         }
     }
 
-    const urls = [ `https://pokeapi.co/api/v2/pokemon/${search.slug}`, `https://pokeapi.co/api/v2/pokemon-species/${search.slug}`]
+    //`https://pokeapi.co/api/v2/pokemon/${search.slug}`
+    // `https://pokeapi.co/api/v2/pokemon-species/${search.slug}`]
 
     //Fetch
     useEffect(() => {
-        const getData = async () =>
+        console.log("fooooo")
+        const getData = () =>
         {
             try {
-                await Promise.all([
+                Promise.all([
                     fetch(`https://pokeapi.co/api/v2/pokemon/${search.slug}`),
                     fetch(`https://pokeapi.co/api/v2/pokemon-species/${search.slug}`)
                 ]).then((responses) => {
@@ -37,8 +42,6 @@ const App = () => {
                     if(search.slug !== "") {
                         setData(test)
                         setError(null)
-                        //             setData(actualData);
-                        //             setError(null);
                     }
                 })
             }
@@ -47,52 +50,12 @@ const App = () => {
             }
         }
 
-        getData();
+        getData()
         setLoading(false);
 
-
-
-
-
-
-        // fetch(`https://pokeapi.co/api/v2/pokemon/${search.slug}`)
-        //     .then((response) => {
-        //         if (!response.ok) {
-        //             throw new Error(`HTTP Error: ${response.status}`);
-        //         }
-        //         return response.json()
-        //     })
-        //     .then((actualData) => {
-        //         if(search.slug !== "") {
-        //             setData(actualData);
-        //             setError(null);
-        //         }
-        //     })
-        //     .catch((err) => {
-        //         setError(err.message);
-        //         setData(null);
-        //     })
-        //     .finally(() => {
-        //         setLoading(false);
-        //     });
-    }, [search.slug]);
-
-    console.log(data)
-
-    const scrollUp = () => {
-        setScroll(scroll + 7)
-    }
-
-    const scrollDown = () => {
-        setScroll(scroll - 7)
-    }
-
-    const scrollStyle = {
-        marginTop: scroll + "em",
-    }
+    }, [search]);
 
     return <div className="App">
-        <h1>Search</h1>
         {error && (
             <div>
                 <p>{`Couldn't find`} <strong>${search.slug}</strong> {`. Try again.`}</p>
@@ -144,21 +107,21 @@ const App = () => {
                                 </div>
                                 {/*<div id="dex-left-controls-col2-row2">*/}
                                     <div id="dex-left-controls-green-screen" className="lightgreen">
-                                        <div id="arrow-up" onClick={scrollUp} style={{display: scroll <= -1.2 ? 'none' : 'block'}}></div>
-                                        <div id="arrow-down" onClick={scrollDown}></div>
-                                        <p style={scrollStyle}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque
-                                            dignissim risus a odio fermentum ultricies. Nullam lectus ipsum,
-                                            feugiat a mi vitae, lobortis auctor augue. Maecenas quis tincidunt eros.
-                                            Cras nec hendrerit dui. Phasellus nec metus dolor. Mauris sit amet leo
-                                            ac nibh cursus dignissim at a magna. Sed tortor massa, maximus vel
-                                            ultricies id, eleifend sed lacus. Nullam venenatis nisl eget urna
-                                            pulvinar, eu tempor mauris vehicula. Fusce ac ligula sem. Suspendisse
-                                            id metus ac justo mattis iaculis vitae quis nulla. Donec finibus tempus
-                                            risus eu finibus. Fusce dapibus metus non urna condimentum mollis.
-                                            Morbi eleifend felis eu arcu tincidunt porttitor. </p>
-                                        {/*{data && (*/}
-                                        {/*    <p>{data[1].flavor_text_entries[0].flavor_text}</p>*/}
-                                        {/*)}*/}
+                                        <div id="dex-left-green-screen-text">
+                                            {/*<p id="poke-entry" ref={targetRef} style={scrollStyle} >Linoone always runs full speed and only in straight lines. If facing an obstacle, it makes a</p>*/}
+                                            {/*<p id="poke-entry" ref={targetRef} style={scrollStyle}>*/}
+                                            {/*    {data && (*/}
+                                            {/*            <>{data[1].flavor_text_entries[0].flavor_text}</>*/}
+                                            {/*    )}*/}
+                                            {/*</p>*/}
+                                            {data && (
+                                                <Entries entryData={data[1].flavor_text_entries[0].flavor_text}/>
+                                            )}
+                                            {/*<div id="dex-left-green-screen-arrows" style={{justifyContent: screenNumber === 1 ? 'end' : 'space-between'}}>*/}
+                                            {/*    <div id="arrow-up" onClick={scrollUp} style={{display: screenNumber === 1 ? 'none' : 'block'}} ></div>*/}
+                                            {/*    <div id="arrow-down" onClick={scrollDown} style={{display: screenNumber >= maxScreen ? 'none' : 'block'}}></div>*/}
+                                            {/*</div>*/}
+                                        </div>
                                     </div>
                                 {/*</div>*/}
                             </div>
