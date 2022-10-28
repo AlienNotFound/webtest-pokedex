@@ -1,18 +1,14 @@
 import React, {createRef, useEffect, useState} from "react";
 
-export const Entries = ({entryData}) => {
+export const Entries = ({entryData, Scroll, ScreenNumber}) => {
     const targetRef = createRef();
     const [maxScreen, setMaxScreen] = useState(null);
-    const [scroll, setScroll] = useState(0);
-    const [screenNumber, setScreenNumber] = useState(1);
 
     useEffect(() => {
-        setScroll(0)
-        setScreenNumber(1)
-        GetMaxScreen()
-    }, [entryData])
+        GetMaxScreens()
+    }, [entryData, ScreenNumber])
 
-    function GetMaxScreen(){
+    function GetMaxScreens(){
         const greenScreen = document.querySelector("#dex-left-green-screen-text");
         const entryDivided = (targetRef.current.offsetHeight - 3) / greenScreen.clientHeight
 
@@ -21,18 +17,16 @@ export const Entries = ({entryData}) => {
         console.log("MaxScreen: " + Math.ceil(entryDivided))
     }
 
-    const scrollUp = () => {
-        setScroll(scroll + 6.5)
-        setScreenNumber(screenNumber - 1);
-    }
-
-    const scrollDown = () => {
-        setScroll(scroll - 6.5)
-        setScreenNumber(screenNumber + 1);
-    }
+    let test = 0;
+    // if (ScreenNumber === maxScreen) {
+    //     test = Scroll;
+    //     console.log("unMaxed", test, ScreenNumber, maxScreen)
+    // } else {
+    //     console.log("Maxed", test, ScreenNumber, maxScreen)
+    // }
 
     const scrollStyle = {
-        marginTop: scroll + "em",
+        marginTop: test + "em",
     }
 
     return (
@@ -40,9 +34,9 @@ export const Entries = ({entryData}) => {
             <p id="poke-entry" ref={targetRef} style={scrollStyle}>
                 {entryData}
             </p>
-            <div id="dex-left-green-screen-arrows" style={{justifyContent: screenNumber === 1 ? 'end' : 'space-between'}}>
-                <div id="arrow-up" onClick={scrollUp} style={{display: screenNumber === 1 ? 'none' : 'block'}} ></div>
-                <div id="arrow-down" onClick={scrollDown} style={{display: screenNumber >= maxScreen ? 'none' : 'block'}}></div>
+            <div id="dex-left-green-screen-arrows" style={{justifyContent: ScreenNumber === 1 ? 'end' : 'space-between'}}>
+                <div id="arrow-up" style={{display: ScreenNumber === 1 ? 'none' : 'block'}} ></div>
+                <div id="arrow-down" style={{display: ScreenNumber >= maxScreen ? 'none' : 'block'}}></div>
             </div>
         </>
     );

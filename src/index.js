@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react"
 import "./style.css"
 import {Entries} from "./components/entriesTag";
 import {BlueButtonsControl} from "./components/blueButtonsControl";
+import {DPad} from "./components/testComp";
 const ReactDOM = require('react-dom/client');
 
 const App = () => {
@@ -9,6 +10,8 @@ const App = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [search, setSearch] = useState("");
+    const [scroll, setScroll] = useState(0);
+    const [screen, setScreen] = useState(1);
 
     const handleChange = (event) => {
         if (event.key === 'Enter') {
@@ -49,10 +52,20 @@ const App = () => {
 
     }, [search]);
 
+    const ScrollUp = () => {
+        setScroll(scroll + 6.5)
+        setScreen(screen - 1)
+    }
+
+    const ScrollDown = () => {
+        setScroll(scroll - 6.5)
+        setScreen(screen + 1)
+    }
+
     return <div className="App">
         {error && (
             <div>
-                <p>{`Couldn't find`} <strong>${search.slug}</strong> {`. Try again.`}</p>
+                <p>{`Couldn't find`} <strong>${search}</strong> {`. Try again.`}</p>
                 <p>{`Error: ${error}`}</p>
             </div>
         )}
@@ -104,13 +117,20 @@ const App = () => {
                                         <div id="dex-left-controls-green-screen" className="lightgreen">
                                             <div id="dex-left-green-screen-text">
                                                 {data && (
-                                                    <Entries entryData={data[1].flavor_text_entries[0].flavor_text}/>
+                                                    <Entries entryData={data[1].flavor_text_entries[0].flavor_text} Scroll={scroll} ScreenNumber={screen} />
                                                 )}
                                             </div>
                                         </div>
                                 </div>
                                 <div id="dex-left-controls-col3">
-                                    <div id="dex-left-controls-arrow-keys"></div>
+                                    {/*<DPad />*/}
+                                    <div id="dex-left-controls-arrow-keys">
+                                        <div id="dex-left-controls-arrow-up" onClick={ScrollUp}></div>
+                                        <div id="dex-left-controls-arrow-down" onClick={ScrollDown}></div>
+                                        <div id="dex-left-controls-mid"></div>
+                                        <div id="dex-left-controls-arrow-left"></div>
+                                        <div id="dex-left-controls-arrow-right"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -134,7 +154,7 @@ const App = () => {
                                        {...(loading && {className:'hidden'})}
                                 />
                                 {data && (
-                                    <h2>{data[0].name} #{data[0].id}</h2>
+                                    <h2>#{data[0].id}</h2>
                                 )}
                             </div>
                         </div>
