@@ -1,12 +1,12 @@
 import React, {createRef, useEffect, useState} from "react";
 
-export const Entries = ({entryData, Scroll, ScreenNumber}) => {
+export const Entries = ({entryData, ScreenNumber, PMargin}) => {
     const targetRef = createRef();
     const [maxScreen, setMaxScreen] = useState(null);
 
     useEffect(() => {
         GetMaxScreens()
-    }, [entryData, ScreenNumber])
+    }, [entryData, PMargin])
 
     function GetMaxScreens(){
         const greenScreen = document.querySelector("#dex-left-green-screen-text");
@@ -17,21 +17,13 @@ export const Entries = ({entryData, Scroll, ScreenNumber}) => {
         console.log("MaxScreen: " + Math.ceil(entryDivided))
     }
 
-    let test = 0;
-    // if (ScreenNumber === maxScreen) {
-    //     test = Scroll;
-    //     console.log("unMaxed", test, ScreenNumber, maxScreen)
-    // } else {
-    //     console.log("Maxed", test, ScreenNumber, maxScreen)
-    // }
-
-    const scrollStyle = {
-        marginTop: test + "em",
+    const pMarginTop = {
+        marginTop: PMargin + "em",
     }
 
     return (
         <>
-            <p id="poke-entry" ref={targetRef} style={scrollStyle}>
+            <p id="poke-entry" ref={targetRef} style={pMarginTop}>
                 {entryData}
             </p>
             <div id="dex-left-green-screen-arrows" style={{justifyContent: ScreenNumber === 1 ? 'end' : 'space-between'}}>
