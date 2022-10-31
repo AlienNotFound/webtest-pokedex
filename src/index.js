@@ -10,9 +10,10 @@ const App = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [search, setSearch] = useState("");
-    // const [scroll, setScroll] = useState(0);
     const [screen, setScreen] = useState(1);
     const [pMarginTop, setPMarginTop] = useState(0)
+    // const [maxScreen, setMaxScreen] = useState(null);
+
 
     const handleChange = (event) => {
         if (event.key === 'Enter') {
@@ -50,7 +51,6 @@ const App = () => {
 
         getData()
         setLoading(false);
-
     }, [search]);
 
     const ScrollUp = () => {
@@ -127,14 +127,8 @@ const App = () => {
                                     <DPad
                                         buttonUp={ScrollUp}
                                         buttonDown={ScrollDown}
+                                        screenNumber={screen}
                                     />
-                                    {/*<div id="dex-left-controls-arrow-keys">*/}
-                                    {/*    <div id="dex-left-controls-arrow-up" onClick={ScrollUp}></div>*/}
-                                    {/*    <div id="dex-left-controls-arrow-down" onClick={ScrollDown}></div>*/}
-                                    {/*    <div id="dex-left-controls-mid"></div>*/}
-                                    {/*    <div id="dex-left-controls-arrow-left"></div>*/}
-                                    {/*    <div id="dex-left-controls-arrow-right"></div>*/}
-                                    {/*</div>*/}
                                 </div>
                             </div>
                         </div>
