@@ -7,7 +7,7 @@ export const BlueButtonsControl = () => {
 
     const buttons = []
     for (let i = 0; i < 10; i++) {
-        buttons.push(<div className={"blueButton"}></div> )
+        buttons.push(<div className={"blueButton"} key={i}></div> )
     }
 
     return (

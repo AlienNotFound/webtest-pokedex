@@ -1,8 +1,9 @@
-import React, {useState, useEffect} from "react"
+import React, {useState, useEffect, useContext} from "react"
 import "./style.css"
 import {Entries} from "./components/entriesTag";
 import {BlueButtonsControl} from "./components/blueButtonsControl";
 import {DPad} from "./components/testComp";
+import EntryContext from "./components/EntryContext";
 const ReactDOM = require('react-dom/client');
 
 const App = () => {
@@ -12,8 +13,7 @@ const App = () => {
     const [search, setSearch] = useState("");
     const [screen, setScreen] = useState(1);
     const [pMarginTop, setPMarginTop] = useState(0)
-    // const [maxScreen, setMaxScreen] = useState(null);
-
+    const maxScreens = useState(null)
 
     const handleChange = (event) => {
         if (event.key === 'Enter') {
@@ -27,6 +27,7 @@ const App = () => {
 
     //Fetch
     useEffect(() => {
+        // console.log(maxScreens)
         const getData = () =>
         {
             try {
@@ -37,9 +38,11 @@ const App = () => {
                     return Promise.all(responses.map((res) => {
                         return res.json();
                     }));
-                }).then((test) => {
+                }).then((responseData) => {
                     if(search !== "") {
-                        setData(test)
+                        setScreen(1)
+                        setPMarginTop(0)
+                        setData(responseData)
                         setError(null)
                     }
                 })
@@ -48,7 +51,6 @@ const App = () => {
                 console.log(e)
             }
         }
-
         getData()
         setLoading(false);
     }, [search]);
@@ -110,26 +112,29 @@ const App = () => {
                                 <div id="dex-left-controls-col1">
                                     <div id="dex-left-controls-col1-button"></div>
                                 </div>
-                                <div id="dex-left-controls-col2">
-                                    <div id="dex-left-controls-col2-row1">
-                                        <div className="dex-left-controls-long-light red"></div>
-                                        <div className="dex-left-controls-long-light blue"></div>
-                                    </div>
-                                        <div id="dex-left-controls-green-screen" className="lightgreen">
-                                            <div id="dex-left-green-screen-text">
-                                                {data && (
-                                                    <Entries entryData={data[1].flavor_text_entries[0].flavor_text} ScreenNumber={screen} PMargin={pMarginTop} />
-                                                )}
-                                            </div>
+                                <EntryContext.Provider value={maxScreens}>
+                                    <div id="dex-left-controls-col2">
+                                        <div id="dex-left-controls-col2-row1">
+                                            <div className="dex-left-controls-long-light red"></div>
+                                            <div className="dex-left-controls-long-light blue"></div>
                                         </div>
-                                </div>
-                                <div id="dex-left-controls-col3">
-                                    <DPad
-                                        buttonUp={ScrollUp}
-                                        buttonDown={ScrollDown}
-                                        screenNumber={screen}
-                                    />
-                                </div>
+                                            <div id="dex-left-controls-green-screen" className="lightgreen">
+                                                <div id="dex-left-green-screen-text">
+                                                    {data && (
+                                                        <Entries entryData={data[1].flavor_text_entries[0].flavor_text} ScreenNumber={screen} PMargin={pMarginTop} />
+                                                    )}
+                                                </div>
+                                            </div>
+                                    </div>
+                                    <div id="dex-left-controls-col3">
+                                        <DPad
+                                            buttonUp={ScrollUp}
+                                            buttonDown={ScrollDown}
+                                            screenNumber={screen}
+                                            maxScreen={maxScreens}
+                                        />
+                                    </div>
+                                </EntryContext.Provider>
                             </div>
                         </div>
                     </div>

@@ -1,20 +1,26 @@
-import React, {createRef, useEffect, useState} from "react";
+import React, {createRef, useContext, useEffect, useState} from "react";
+import EntryContext from "./EntryContext";
 
 export const Entries = ({entryData, ScreenNumber, PMargin}) => {
     const targetRef = createRef();
     const [maxScreen, setMaxScreen] = useState(null);
+    let [screenContext, setScreenContext] = useContext(EntryContext)
 
     useEffect(() => {
         GetMaxScreens()
-    }, [entryData, PMargin])
+    })
 
     function GetMaxScreens(){
         const greenScreen = document.querySelector("#dex-left-green-screen-text");
         const entryDivided = (targetRef.current.offsetHeight - 3) / greenScreen.clientHeight
 
+        setScreenContext(Math.ceil(entryDivided))
         setMaxScreen(Math.ceil(entryDivided))
+        console.log("Max screen: " + maxScreen, screenContext)
+        // test.setTest.max(2)
+        // test.max = Math.ceil(entryDivided)
 
-        console.log("MaxScreen: " + Math.ceil(entryDivided))
+        console.log("MaxScreen: " + Math.ceil(entryDivided), screenContext)
     }
 
     const pMarginTop = {
