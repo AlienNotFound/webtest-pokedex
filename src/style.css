@@ -708,19 +708,32 @@ h2, #pokemonInput {
     height: 6px;
     background-color: #2f5f42;
     left: 120px;
+    animation-duration: .5s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-timing-function: linear;
 }
 
-/*#arrow-up:hover, #arrow-down:hover {*/
-/*    cursor: pointer;*/
-/*}*/
+@keyframes arrow-up-anim {
+    from {margin-top: 1px}
+    to {margin-top: -2px}
+
+}
+
+@keyframes arrow-down-anim {
+    from {margin-bottom: 1px}
+    to {margin-bottom: -2px}
+
+}
 
 #arrow-up {
-    /*margin-top: -6px;*/
+    animation-name: arrow-up-anim;
     clip-path: polygon(50% 0, 50% 0, 100% 100%, 0 100%);
     top: 9px;
 }
 
 #arrow-down {
+    animation-name: arrow-down-anim;
     clip-path: polygon(0 0, 100% 0, 50% 100%);
     top: 55px;
 }
@@ -818,47 +831,9 @@ h2, #pokemonInput {
     cursor: pointer;
 }
 
-/*#dex-left-controls-arrow-up::after {*/
-/*    top: -50px;*/
-/*    left: 45px;*/
-/*    clip-path: polygon(50% 0, 100% 100%, 100% 100%, 0 100%);*/
-/*}*/
-
-/*#dex-left-controls-arrow-right::before {*/
-/*    clip-path: polygon(0% 0, 100% 50%, 0% 100%, 0 0%);*/
-/*}*/
-
-/*#dex-left-controls-arrow-down::before {*/
-/*    clip-path: polygon(0% 0%, 100% 0%, 50% 100%, 50% 100%);*/
-/*}*/
-
-/*#dex-left-controls-arrow-left::after {*/
-/*    clip-path: polygon(0 50%, 100% 0%, 100% 100%, 50% 100%);*/
-/*}*/
-
-/*#dex-left-controls-arrow-keys::before,*/
-/*#dex-left-controls-arrow-keys::after {*/
-/*    content: '';*/
-/*    display: block;*/
-/*    background-color: #444;*/
-/*    position: relative;*/
-/*}*/
-/*#dex-left-controls-arrow-keys::before {*/
-/*    width: 100px;*/
-/*    height: 30px;*/
-/*    top: 35px;*/
-/*    border-width: 2px 2px 4px 2px;*/
-/*}*/
-
-/*#dex-left-controls-arrow-keys::after {*/
-/*    width: 30px;*/
-/*    height: 100px;*/
-/*    left: 35px;*/
-/*    top: -33px;*/
-/*    border-width: 2px 0 4px 0;*/
-/*    border-color: #222;*/
-/*    border-style: solid;*/
-/*    background: radial-gradient(circle at 15px 48px, transparent 4px, #222 5px, transparent 6px),*/
-/*                linear-gradient(transparent 31px, #444 32px, #444 62px, transparent 63px),*/
-/*                linear-gradient(90deg, #222 2px, transparent 2px), linear-gradient(270deg, #222 2px, transparent 2px) #444*/
-/*}*/
+/* RESPONSIVE */
+@media screen and (min-width: 1200px) {
+    #screen1-border {
+        height: 19vh;
+    }
+}

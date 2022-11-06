@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from "react"
+import React, {useState, useEffect} from "react"
 import "./style.css"
 import {Entries} from "./components/entriesTag";
 import {BlueButtonsControl} from "./components/blueButtonsControl";
@@ -22,12 +22,8 @@ const App = () => {
         }
     }
 
-    //`https://pokeapi.co/api/v2/pokemon/${search}`
-    // `https://pokeapi.co/api/v2/pokemon-species/${search}`]
-
     //Fetch
     useEffect(() => {
-        // console.log(maxScreens)
         const getData = () =>
         {
             try {
@@ -190,7 +186,7 @@ const App = () => {
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
-    <App></App>
+    <App />
     // <React.StrictMode>
     //     <App />
     // </React.StrictMode>,
