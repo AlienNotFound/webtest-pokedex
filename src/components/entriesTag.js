@@ -23,14 +23,24 @@ export const Entries = ({entryData, ScreenNumber, PMargin}) => {
         marginTop: PMargin + "em",
     }
 
+    const arrowDisabledStyle = {
+        backgroundColor: '#459163',
+        animationPlayState: 'paused',
+    }
+
+    const arrowEnabledStyle = {
+        backgroundColor: '#2f5f42',
+    }
+
     return (
         <>
             <p id="poke-entry" ref={targetRef} style={pMarginTop}>
                 {entryData}
             </p>
-            <div id="dex-left-green-screen-arrows" style={{justifyContent: ScreenNumber === 1 ? 'end' : 'space-between'}}>
-                <div id="arrow-up" style={{display: ScreenNumber === 1 ? 'none' : 'block'}} ></div>
-                <div id="arrow-down" style={{display: ScreenNumber >= screenContext ? 'none' : 'block'}}></div>
+            <div id="dex-left-green-screen-arrows" >
+                <div id="arrow-up" style={ScreenNumber === 1 ? arrowDisabledStyle : arrowEnabledStyle} ></div>
+                {/*<div id="green-screen-arrow-spacer"></div>*/}
+                <div id="arrow-down" style={ScreenNumber >= screenContext ? arrowDisabledStyle : arrowEnabledStyle}></div>
             </div>
         </>
     );

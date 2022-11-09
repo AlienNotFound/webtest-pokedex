@@ -1,6 +1,6 @@
 body {
     font-family: monospace;
-    background-color: #cd3156;
+    background-color: #444;
     margin: 0!important;
 }
 
@@ -61,6 +61,14 @@ h2, #pokemonInput {
     align-items: center;
 }
 
+/* True Center */
+.small-black-screen {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+}
+
 /* Box-sizing: borderbox */
 .App,
 #dex-left-header1,
@@ -87,7 +95,6 @@ h2, #pokemonInput {
     margin: 0 auto;
     padding-top: 1%;
     padding-bottom: 5%;
-    background-color: #fff;
     width: 60vw;
 }
 
@@ -249,8 +256,8 @@ h2, #pokemonInput {
 
 #dex-mid {
     width: 50px;
-    border: #000 3px solid;
-    height: 477px;
+    border: #222 3px solid;
+    height: 480px;
     margin-top: -43px;
 
 }
@@ -286,6 +293,15 @@ h2, #pokemonInput {
     box-shadow: inset -0px -5px 1px -2px rgb(26, 105, 159);
 }
 
+.blueButton:hover {
+    cursor: pointer;
+    background-color: #32afff;
+}
+
+.blueButton:active {
+    background-color: #1b96e3;
+}
+
 .blueButton:nth-child(1) {
     border-radius: 2px 0 0 0;
 }
@@ -315,7 +331,7 @@ h2, #pokemonInput {
 
 #dex-right-top-row {
     width: 200px;
-    height: 51px;
+    height: 55px;
     border-color: #222;
     border-width: 3px 0 0 0;
     border-style: solid;
@@ -323,22 +339,22 @@ h2, #pokemonInput {
     content: '';
     display: block;
     position: relative;
-    margin-top: -50px;
-    top: 8px;
+    margin-bottom: -9px;
     background: linear-gradient(90deg, #dc0a2d 10px, transparent 10px),
-                linear-gradient(transparent 45px, #dc0a2d 45px, #dc0a2d 50px, #8a1122 50px),
-                linear-gradient(43deg, #dc0a2d 133px, #222 134px);
+                linear-gradient(transparent 48px, #dc0a2d 49px, #dc0a2d 49px, #dc0a2d 49px),
+                linear-gradient(45deg, #dc0a2d 138px, #222 134px);
+                /*linear-gradient(#dc0a2d, #dc0a2d);*/
 }
 
 #dex-right-top-row::before {
     width: 192px;
-    height: 45px;
+    height: 50px;
     border-color: #8a1122;
     border-width: 1px 0 0 1px;
     border-style: solid;
     border-radius: 5px 0 0 0;
-    clip-path: polygon(0 0, 71% 0, 96% 100%, 0% 100%);
-    background: linear-gradient(43.5deg, #dc0a2d 126px, #8a1122 127px);
+    clip-path: polygon(0 0, 69% 0, 96% 100%, 0% 100%);
+    background: linear-gradient(44.5deg, #dc0a2d 127px, #8a1122 128px);
     content: '';
     display: block;
     position: relative;
@@ -706,8 +722,9 @@ h2, #pokemonInput {
 #arrow-up, #arrow-down {
     width: 8px;
     height: 6px;
+    padding: 1px 0;
     background-color: #2f5f42;
-    left: 120px;
+    /*left: 120px;*/
     animation-duration: .5s;
     animation-iteration-count: infinite;
     animation-direction: alternate;
@@ -715,8 +732,8 @@ h2, #pokemonInput {
 }
 
 @keyframes arrow-up-anim {
-    from {margin-top: 1px}
-    to {margin-top: -2px}
+    from {margin-top: -1px}
+    to {margin-top: 3px}
 
 }
 
@@ -729,7 +746,7 @@ h2, #pokemonInput {
 #arrow-up {
     animation-name: arrow-up-anim;
     clip-path: polygon(50% 0, 50% 0, 100% 100%, 0 100%);
-    top: 9px;
+    /*top: 9px;*/
 }
 
 #arrow-down {
@@ -737,6 +754,11 @@ h2, #pokemonInput {
     clip-path: polygon(0 0, 100% 0, 50% 100%);
     top: 55px;
 }
+
+/*#green-screen-arrow-spacer {*/
+/*    height: 70%;*/
+/*    background-color: rgba(0, 0, 0, 0.30);*/
+/*}*/
 
 #dex-left-controls-arrow-keys {
     width: 100px;
@@ -832,8 +854,8 @@ h2, #pokemonInput {
 }
 
 /* RESPONSIVE */
-@media screen and (min-width: 1200px) {
-    #screen1-border {
-        height: 19vh;
-    }
-}
+/*@media screen and (min-width: 1200px) {*/
+/*    #screen1-border {*/
+/*        height: 19vh;*/
+/*    }*/
+/*}*/

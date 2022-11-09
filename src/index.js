@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react"
-import "./style.css"
+import "./styles/style.css"
+import "./styles/types.css"
 import {Entries} from "./components/entriesTag";
 import {BlueButtonsControl} from "./components/blueButtonsControl";
 import {DPad} from "./components/testComp";
@@ -24,12 +25,13 @@ const App = () => {
 
     //Fetch
     useEffect(() => {
+        //Easteregg: shiny pokémon
         const getData = () =>
         {
             try {
                 Promise.all([
                     fetch(`https://pokeapi.co/api/v2/pokemon/${search}`),
-                    fetch(`https://pokeapi.co/api/v2/pokemon-species/${search}`)
+                    fetch(`https://pokeapi.co/api/v2/pokemon-species/${search}`),
                 ]).then((responses) => {
                     return Promise.all(responses.map((res) => {
                         return res.json();
@@ -40,6 +42,8 @@ const App = () => {
                         setPMarginTop(0)
                         setData(responseData)
                         setError(null)
+                        // if(data)
+                        //     setTypeName(data[0].types[0].type.name)
                     }
                 })
             }
@@ -48,6 +52,7 @@ const App = () => {
             }
         }
         getData()
+
         setLoading(false);
     }, [search]);
 
@@ -172,8 +177,16 @@ const App = () => {
                             <div id="yellow-round-button" className={"yellow"}></div>
                         </div>
                         <div className="dex-right-row">
-                            <div className="small-black-screen"></div>
-                            <div className="small-black-screen"></div>
+                            <div className="small-black-screen">
+                                {data && (
+                                    <p className={data[0].types[0].type.name + "-type type-label"}>{data[0].types[0].type.name}</p>
+                                )}
+                            </div>
+                            <div className="small-black-screen">
+                                {data && data[0].types[1] && (
+                                    <p className={data[0].types[1].type.name + "-type type-label"}>{data[0].types[1].type.name}</p>
+                                )}
+                            </div>
                         </div>
                     </div>
                 </div>
