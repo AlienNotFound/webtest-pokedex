@@ -21,7 +21,7 @@ h2, #pokemonInput {
 #suggestionsList {
     width: 21%;
     position: absolute;
-    background-color: #b4b4b4;
+    background-color: #222;
     top: 260px;
     left: 800px;
 }
@@ -29,6 +29,7 @@ h2, #pokemonInput {
 .suggestionChild {
     padding: 5px;
     font-size: 16px;
+    color: #4c8055;
 }
 
 .suggestionChild:hover {
@@ -872,8 +873,14 @@ h2, #pokemonInput {
 }
 
 /* RESPONSIVE */
-/*@media screen and (min-width: 1200px) {*/
-/*    #screen1-border {*/
-/*        height: 19vh;*/
-/*    }*/
-/*}*/
+@media screen and (min-width: 1200px) {
+   #screen1-border {
+       height: 19vh;
+   }
+
+   #suggestionsList {
+        width: 324px;
+        top: 250px;
+        left: 711px;
+   }
+}

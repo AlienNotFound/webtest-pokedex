@@ -126,6 +126,7 @@ const App = () => {
         )}
 
         <div id="suggestionsList" style={{display: suggestions > 0 ? 'none' : 'block'}}>
+        {/* <div id="suggestionsList" style={{height: 50}}> */}
             {suggestions && suggestions.map((suggestion, id) => (
                 <div className="suggestionChild" onClick={suggestionClick} key={id}>{suggestion.name}</div>
             ))}
