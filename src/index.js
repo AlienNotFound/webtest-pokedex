@@ -9,17 +9,38 @@ const ReactDOM = require('react-dom/client');
 
 const App = () => {
     const [data, setData] = useState(null);
+    const [pokemons, setPokemons] = useState([]);
+    const [suggestions, setSuggestions] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [search, setSearch] = useState("");
     const [screen, setScreen] = useState(1);
     const [pMarginTop, setPMarginTop] = useState(0)
     const maxScreens = useState(null)
+    const [test, setTest] = useState("");
 
     const handleChange = (event) => {
         if (event.key === 'Enter') {
             setSearch(event.target.value)
             console.log("Search: " + event.target.value)
+        }
+
+        if (event.key === 'Escape')
+            setSuggestions(null)
+    }
+
+    const onInputChange = (e) => {
+        let matches = []
+        if(e.length !== 0) {
+            matches = pokemons.filter(pokemon => {
+                const regex = new RegExp(e.target.value, "gi");
+                return pokemon.name.match(regex)
+            })
+            matches.sort((a, b) =>
+                a.name > b.name ? 1 : -1,
+            );
+            console.log(matches)
+            setSuggestions(matches)
         }
     }
 
@@ -42,8 +63,6 @@ const App = () => {
                         setPMarginTop(0)
                         setData(responseData)
                         setError(null)
-                        // if(data)
-                        //     setTypeName(data[0].types[0].type.name)
                     }
                 })
             }
@@ -55,6 +74,38 @@ const App = () => {
 
         setLoading(false);
     }, [search]);
+
+    let pokeArr = []
+    useEffect(() => {
+        try {
+            Promise.all([
+                fetch(`https://pokeapi.co/api/v2/pokemon/?limit=2000`),
+            ]).then((responses) => {
+                return Promise.all(responses.map((res) => {
+                    return res.json();
+                }));
+            }).then((responseData) => {
+                for(let i = 0; i < responseData[0].results.length; i++) {
+                    pokeArr.push(responseData[0].results[i].name)
+                }
+                setPokemons(responseData[0].results)
+                if(search !== "") {
+                    setError(null)
+                }
+            })
+        }
+        catch (e) {
+            console.log(e)
+        }
+    })
+
+    const suggestionClick = (e) => {
+        const pContent = e.currentTarget.textContent;
+        console.log("Name: ", pContent)
+        setSearch(pContent)
+        setSuggestions(null)
+        setTest(pContent)
+    }
 
     const ScrollUp = () => {
         setPMarginTop(pMarginTop + 6.5)
@@ -73,6 +124,12 @@ const App = () => {
                 <p>{`Error: ${error}`}</p>
             </div>
         )}
+
+        <div id="suggestionsList" style={{display: suggestions > 0 ? 'none' : 'block'}}>
+            {suggestions && suggestions.map((suggestion, id) => (
+                <div className="suggestionChild" onClick={suggestionClick} key={id}>{suggestion.name}</div>
+            ))}
+        </div>
 
         <div id="pokedex">
             <div id="dex-left-column">
@@ -153,8 +210,9 @@ const App = () => {
                                 {loading && <h2>Just a moment!</h2>}
                                 <input type="text" id="pokemonInput"
                                        onKeyDown={handleChange}
+                                       onChange={onInputChange}
                                        placeholder={"Search"}
-                                       defaultValue={""}
+                                       defaultValue={test}
                                        {...(loading && {className:'hidden'})}
                                 />
                                 {data && (

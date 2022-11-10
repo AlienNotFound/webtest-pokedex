@@ -2,6 +2,7 @@ body {
     font-family: monospace;
     background-color: #444;
     margin: 0!important;
+    overflow-y: hidden;
 }
 
 h1 {
@@ -10,12 +11,29 @@ h1 {
 
 h2, #pokemonInput {
     color: #4c8055;
-    text-transform: capitalize;
 }
 
 #black-screen h2 {
     margin-right: 2px;
     text-align: end;
+}
+
+#suggestionsList {
+    width: 21%;
+    position: absolute;
+    background-color: #b4b4b4;
+    top: 260px;
+    left: 800px;
+}
+
+.suggestionChild {
+    padding: 5px;
+    font-size: 16px;
+}
+
+.suggestionChild:hover {
+    background-color: #2221;
+    cursor: pointer;
 }
 
 .hidden {
@@ -172,8 +190,8 @@ h2, #pokemonInput {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    justify-content: end;
-    align-items: end;
+    justify-content: flex-end;
+    align-items: flex-end;
 }
 
 #dex-right-header-top {
@@ -228,7 +246,7 @@ h2, #pokemonInput {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
-    justify-content: end;
+    justify-content: flex-end;
     align-content: baseline;
 }
 
@@ -381,7 +399,7 @@ h2, #pokemonInput {
 
 .dex-right-row:nth-child(3) {
     margin-top: 10px;
-    justify-content: end;
+    justify-content: flex-end;
 }
 
 .slim-black-button {
