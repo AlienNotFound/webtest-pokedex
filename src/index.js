@@ -1,23 +1,26 @@
 import React, {useState, useEffect} from "react"
 import "./styles/style.css"
 import "./styles/types.css"
-import {Entries} from "./components/entriesTag";
+import {Entries} from "./components/entriesComp";
 import {BlueButtonsControl} from "./components/blueButtonsControl";
-import {DPad} from "./components/testComp";
-import EntryContext from "./components/EntryContext";
+import {DPad} from "./components/dpadComp";
+import EntryContext from "./contexts/entryContext";
+import { SuggestionChild } from "./components/suggestionChildComp";
+import { GetData } from "./apiEndpoints";
 const ReactDOM = require('react-dom/client');
 
 const App = () => {
-    const [data, setData] = useState(null);
-    const [pokemons, setPokemons] = useState([]);
-    const [suggestions, setSuggestions] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const [search, setSearch] = useState("");
-    const [screen, setScreen] = useState(1);
+    const [data, setData] = useState(null)
+    const [pokemons, setPokemons] = useState([])
+    const [suggestions, setSuggestions] = useState([])
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState(null)
+    const [search, setSearch] = useState("")
+    const [screen, setScreen] = useState(1)
     const [pMarginTop, setPMarginTop] = useState(0)
+    const [active, setActive] = useState(0)
     const maxScreens = useState(null)
-    const [test, setTest] = useState("");
+    const testSearch = useState(null)
 
     const handleChange = (event) => {
         if (event.key === 'Enter') {
@@ -42,6 +45,7 @@ const App = () => {
             console.log(matches)
             setSuggestions(matches)
         }
+        setActive(0)
     }
 
     //Fetch
@@ -97,15 +101,42 @@ const App = () => {
         catch (e) {
             console.log(e)
         }
-    })
+    }, [])
 
-    const suggestionClick = (e) => {
-        const pContent = e.currentTarget.textContent;
-        console.log("Name: ", pContent)
-        setSearch(pContent)
-        setSuggestions(null)
-        setTest(pContent)
+    const arrowPress = (e) => {
+        if(e.key === 'ArrowUp') {
+            e.preventDefault();
+            if(active > 0)
+            setActive(active - 1)
+            console.log(active);
+        }
+        if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            if(active < suggestions.length - 1)
+                setActive(active + 1)
+            
+            console.log(active);
+        }
+        if(e.key === 'Enter') {
+            setSearch(suggestions[active].name)
+            console.log(suggestions[active].name, active)
+            if(search)
+                setSuggestions(null)
+        }
     }
+
+    useEffect(() => {
+        document.addEventListener('keydown', arrowPress)
+        return () => document.removeEventListener('keydown', arrowPress)
+    }, [arrowPress])
+
+    // const suggestionClick = (e) => {
+    //     const pContent = e.currentTarget.textContent;
+    //     console.log("Name: ", pContent)
+    //     setSearch(pContent)
+    //     setSuggestions(null)
+    //     setTest(pContent)
+    // }
 
     const ScrollUp = () => {
         setPMarginTop(pMarginTop + 6.5)
@@ -125,10 +156,10 @@ const App = () => {
             </div>
         )}
 
-        <div id="suggestionsList" style={{display: suggestions > 0 ? 'none' : 'block'}}>
-        {/* <div id="suggestionsList" style={{height: 50}}> */}
+        <div id="suggestionsList" style={{display: suggestions > 0 ? 'none' : 'block'}} tabIndex={0}>
             {suggestions && suggestions.map((suggestion, id) => (
-                <div className="suggestionChild" onClick={suggestionClick} key={id}>{suggestion.name}</div>
+                <SuggestionChild key={id} text={suggestion.name} selected={active === id ? true : false} />
+                // <div className="suggestionChild" style={{backgroundColor: active === id ? '#fff2' : '#222'}} onClick={suggestionClick} key={id}>{suggestion.name}</div>
             ))}
         </div>
 
@@ -213,7 +244,6 @@ const App = () => {
                                        onKeyDown={handleChange}
                                        onChange={onInputChange}
                                        placeholder={"Search"}
-                                       defaultValue={test}
                                        {...(loading && {className:'hidden'})}
                                 />
                                 {data && (
@@ -259,7 +289,4 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
     <App />
-    // <React.StrictMode>
-    //     <App />
-    // </React.StrictMode>,
 )

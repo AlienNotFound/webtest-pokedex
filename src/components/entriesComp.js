@@ -1,5 +1,5 @@
 import React, {createRef, useContext, useEffect} from "react";
-import EntryContext from "./EntryContext";
+import EntryContext from "../contexts/entryContext";
 
 export const Entries = ({entryData, ScreenNumber, PMargin}) => {
     const targetRef = createRef();
