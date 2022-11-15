@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react"
+import React, {useState, useEffect, useContext} from "react"
 import "./styles/style.css"
 import "./styles/types.css"
 import {Entries} from "./components/entriesComp";
@@ -7,6 +7,8 @@ import {DPad} from "./components/dpadComp";
 import EntryContext from "./contexts/entryContext";
 import { SuggestionChild } from "./components/suggestionChildComp";
 import { GetData } from "./apiEndpoints";
+import TestContext from "./contexts/testContext";
+import { createContext } from "react";
 const ReactDOM = require('react-dom/client');
 
 const App = () => {
@@ -21,6 +23,9 @@ const App = () => {
     const [active, setActive] = useState(0)
     const maxScreens = useState(null)
     const testSearch = useState(null)
+
+    // const SomeContext = useContext(TestContext)
+    // const [someSearch, setSomeSearch] = useState("some test")
 
     const handleChange = (event) => {
         if (event.key === 'Enter') {
@@ -75,7 +80,6 @@ const App = () => {
             }
         }
         getData()
-
         setLoading(false);
     }, [search]);
 
@@ -126,17 +130,15 @@ const App = () => {
     }
 
     useEffect(() => {
+        if(testSearch[0]) {
+            setSearch(testSearch[0])
+        }
+    }, [testSearch[0]])
+
+    useEffect(() => {
         document.addEventListener('keydown', arrowPress)
         return () => document.removeEventListener('keydown', arrowPress)
     }, [arrowPress])
-
-    // const suggestionClick = (e) => {
-    //     const pContent = e.currentTarget.textContent;
-    //     console.log("Name: ", pContent)
-    //     setSearch(pContent)
-    //     setSuggestions(null)
-    //     setTest(pContent)
-    // }
 
     const ScrollUp = () => {
         setPMarginTop(pMarginTop + 6.5)
@@ -156,12 +158,13 @@ const App = () => {
             </div>
         )}
 
-        <div id="suggestionsList" style={{display: suggestions > 0 ? 'none' : 'block'}} tabIndex={0}>
-            {suggestions && suggestions.map((suggestion, id) => (
-                <SuggestionChild key={id} text={suggestion.name} selected={active === id ? true : false} />
-                // <div className="suggestionChild" style={{backgroundColor: active === id ? '#fff2' : '#222'}} onClick={suggestionClick} key={id}>{suggestion.name}</div>
-            ))}
-        </div>
+        <TestContext.Provider value={testSearch}>
+            <div id="suggestionsList" style={{display: suggestions > 0 ? 'none' : 'block'}} tabIndex={0}>
+                {suggestions && suggestions.map((suggestion, id) => (
+                    <SuggestionChild key={id} text={suggestion.name} selected={active === id ? true : false} />
+                ))}
+            </div>
+        </TestContext.Provider>
 
         <div id="pokedex">
             <div id="dex-left-column">

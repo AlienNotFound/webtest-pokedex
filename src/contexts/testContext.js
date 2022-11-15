@@ -1,7 +1,7 @@
 import React from "react";
 
 const TestContext = React.createContext({
-    search: null,
+    search: "segseg",
     // suggestions: null,
 
 })
