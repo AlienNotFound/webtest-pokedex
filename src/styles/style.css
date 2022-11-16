@@ -873,7 +873,7 @@ h2, #pokemonInput {
 }
 
 /* RESPONSIVE */
-@media screen and (min-width: 1200px) {
+/* @media screen and (min-width: 1200px) {
    #screen1-border {
        height: 19vh;
    }
@@ -883,4 +883,4 @@ h2, #pokemonInput {
         top: 250px;
         left: 711px;
    }
-}
+} */

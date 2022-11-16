@@ -22,22 +22,24 @@ const App = () => {
     const [pMarginTop, setPMarginTop] = useState(0)
     const [active, setActive] = useState(0)
     const maxScreens = useState(null)
-    const testSearch = useState(null)
+    const searchContext = useState(null)
+    const [inputVal, setInputVal] = useState('')
 
     // const SomeContext = useContext(TestContext)
     // const [someSearch, setSomeSearch] = useState("some test")
 
-    const handleChange = (event) => {
-        if (event.key === 'Enter') {
-            setSearch(event.target.value)
-            console.log("Search: " + event.target.value)
-        }
+    // const handleChange = (event) => {
+    //     if (event.key === 'Enter') {
+    //         setSearch(event.target.value)
+    //         console.log("Search: " + event.target.value)
+    //     }
 
-        if (event.key === 'Escape')
-            setSuggestions(null)
-    }
+    //     if (event.key === 'Escape')
+    //         setSuggestions(null)
+    // }
 
     const onInputChange = (e) => {
+        setInputVal(e.target.value)
         let matches = []
         if(e.length !== 0) {
             matches = pokemons.filter(pokemon => {
@@ -107,7 +109,8 @@ const App = () => {
         }
     }, [])
 
-    const arrowPress = (e) => {
+    /* Overall check for keyboard press */
+    const keyboardPress = (e) => {
         if(e.key === 'ArrowUp') {
             e.preventDefault();
             if(active > 0)
@@ -123,23 +126,30 @@ const App = () => {
         }
         if(e.key === 'Enter') {
             setSearch(suggestions[active].name)
+            setInputVal(suggestions[active].name)
             console.log(suggestions[active].name, active)
-            if(search)
-                setSuggestions(null)
+            // if(search)
+            setSuggestions(null)
+        }
+        if(e.key === 'Escape') {
+            setSuggestions(null)
         }
     }
+    
+    useEffect(() => {
+        document.addEventListener('keydown', keyboardPress)
+        return () => document.removeEventListener('keydown', keyboardPress)
+    }, [keyboardPress])
 
     useEffect(() => {
-        if(testSearch[0]) {
-            setSearch(testSearch[0])
+        if(searchContext[0]) {
+            setSearch(searchContext[0])
+            setInputVal(searchContext[0])
+            setSuggestions(null)
         }
-    }, [testSearch[0]])
+    }, [searchContext[0]])
 
-    useEffect(() => {
-        document.addEventListener('keydown', arrowPress)
-        return () => document.removeEventListener('keydown', arrowPress)
-    }, [arrowPress])
-
+    /* Green Screen Scroll */
     const ScrollUp = () => {
         setPMarginTop(pMarginTop + 6.5)
         setScreen(screen - 1)
@@ -158,7 +168,7 @@ const App = () => {
             </div>
         )}
 
-        <TestContext.Provider value={testSearch}>
+        <TestContext.Provider value={searchContext}>
             <div id="suggestionsList" style={{display: suggestions > 0 ? 'none' : 'block'}} tabIndex={0}>
                 {suggestions && suggestions.map((suggestion, id) => (
                     <SuggestionChild key={id} text={suggestion.name} selected={active === id ? true : false} />
@@ -244,8 +254,11 @@ const App = () => {
                             <div id="black-screen">
                                 {loading && <h2>Just a moment!</h2>}
                                 <input type="text" id="pokemonInput"
-                                       onKeyDown={handleChange}
+                                    //    onKeyDown={handleChange}
                                        onChange={onInputChange}
+                                       value={inputVal}
+                                       spellCheck={false}
+                                       contentEditable={true}
                                        placeholder={"Search"}
                                        {...(loading && {className:'hidden'})}
                                 />
