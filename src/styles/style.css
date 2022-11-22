@@ -417,7 +417,7 @@ h2, #pokemonInput {
 #white-buttons {
     display: flex;
     flex-direction: row;
-    justify-content: start;
+    justify-content: flex-start;
 }
 
 .white-button {
