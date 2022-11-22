@@ -25,32 +25,52 @@ const App = () => {
     const searchContext = useState(null)
     const [inputVal, setInputVal] = useState('')
 
-    // const SomeContext = useContext(TestContext)
-    // const [someSearch, setSomeSearch] = useState("some test")
+    let pokeArr = []
+    useEffect(() => {
+        try {
+            Promise.all([
+                fetch(`https://pokeapi.co/api/v2/pokemon-species?limit=2000`),
+            ]).then((responses) => {
+                return Promise.all(responses.map((res) => {
+                    return res.json();
+                }));
+            }).then((responseData) => {
+                for(let i = 0; i < responseData[0].results.length; i++) {
+                    pokeArr.push(responseData[0].results[i].name)
+                }
+                setPokemons(pokemons => [...pokemons, pokeArr])
 
-    // const handleChange = (event) => {
-    //     if (event.key === 'Enter') {
-    //         setSearch(event.target.value)
-    //         console.log("Search: " + event.target.value)
-    //     }
-
-    //     if (event.key === 'Escape')
-    //         setSuggestions(null)
-    // }
+                if(search !== "") {
+                    setError(null)
+                }
+            })
+        }
+        catch (e) {
+            console.log(e)
+        }
+        console.log(pokeArr);
+    }, [])
 
     const onInputChange = (e) => {
-        setInputVal(e.target.value)
+        const inputStr = e.target.value;
+        setInputVal(inputStr)
         let matches = []
         if(e.length !== 0) {
-            matches = pokemons.filter(pokemon => {
-                const regex = new RegExp(e.target.value, "gi");
-                return pokemon.name.match(regex)
+            matches = pokemons[0].filter(pokemon => {
+                const regex = new RegExp(inputStr, "gi");
+                const a = pokemon.match(regex)
+                return a
             })
-            matches.sort((a, b) =>
-                a.name > b.name ? 1 : -1,
-            );
-            console.log(matches)
+            console.log(matches.sort((a, b) => {
+                if (a.toLowerCase().indexOf(inputStr.toLowerCase()) > b.toLowerCase().indexOf(inputStr.toLowerCase())) {
+                    return 1;
+                } else if (a.toLowerCase().indexOf(inputStr.toLowerCase()) < b.toLowerCase().indexOf(inputStr.toLowerCase())) {
+                    return -1;
+                }
+            }));
+            
             setSuggestions(matches)
+            console.log("suggestions: ", suggestions);
         }
         setActive(0)
     }
@@ -84,31 +104,7 @@ const App = () => {
         getData()
         setLoading(false);
     }, [search]);
-
-    let pokeArr = []
-    useEffect(() => {
-        try {
-            Promise.all([
-                fetch(`https://pokeapi.co/api/v2/pokemon/?limit=2000`),
-            ]).then((responses) => {
-                return Promise.all(responses.map((res) => {
-                    return res.json();
-                }));
-            }).then((responseData) => {
-                for(let i = 0; i < responseData[0].results.length; i++) {
-                    pokeArr.push(responseData[0].results[i].name)
-                }
-                setPokemons(responseData[0].results)
-                if(search !== "") {
-                    setError(null)
-                }
-            })
-        }
-        catch (e) {
-            console.log(e)
-        }
-    }, [])
-
+    
     /* Overall check for keyboard press */
     const keyboardPress = (e) => {
         if(e.key === 'ArrowUp') {
@@ -120,15 +116,15 @@ const App = () => {
         if (e.key === 'ArrowDown') {
             e.preventDefault();
             if(active < suggestions.length - 1)
-                setActive(active + 1)
+            setActive(active + 1)
             
             console.log(active);
         }
         if(e.key === 'Enter') {
-            setSearch(suggestions[active].name)
-            setInputVal(suggestions[active].name)
-            console.log(suggestions[active].name, active)
-            // if(search)
+            const s = suggestions[active]
+            setSearch(s)
+            setInputVal(s)
+            console.log(s, active)
             setSuggestions(null)
         }
         if(e.key === 'Escape') {
@@ -143,8 +139,9 @@ const App = () => {
 
     useEffect(() => {
         if(searchContext[0]) {
-            setSearch(searchContext[0])
-            setInputVal(searchContext[0])
+            const s = searchContext[0]
+            setSearch(s)
+            setInputVal(s)
             setSuggestions(null)
         }
     }, [searchContext[0]])
@@ -169,9 +166,9 @@ const App = () => {
         )}
 
         <TestContext.Provider value={searchContext}>
-            <div id="suggestionsList" style={{display: suggestions > 0 ? 'none' : 'block'}} tabIndex={0}>
+            <div id="suggestionsList" style={{display: !suggestions ? 'none' : 'block'}} tabIndex={0}>                
                 {suggestions && suggestions.map((suggestion, id) => (
-                    <SuggestionChild key={id} text={suggestion.name} selected={active === id ? true : false} />
+                    <SuggestionChild key={id} text={suggestion} selected={active === id ? true : false} />
                 ))}
             </div>
         </TestContext.Provider>
