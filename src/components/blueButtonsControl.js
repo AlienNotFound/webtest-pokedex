@@ -8,12 +8,14 @@ export const BlueButtonsControl = () => {
 
     const buttons = []
     const icons = [
-        'a', 
+        MagnifyingGlass, 
         'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'
     ]
     for (let i = 0; i < 10; i++) {
-        buttons.push(<div className={"blueButton"} key={i}>{icons[i]}</div> )
-    }
+        buttons.push(<div className={"blueButton"} key={i}>
+                <img src={icons[i]} alt={icons[i]} />
+            </div> 
+            )}
 
     return (
         <>
